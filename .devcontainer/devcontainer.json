@@ -1,0 +1,9 @@
+{
+    "name": "account",
+    "dockerComposeFile": "../docker-compose.yaml",
+    "service": "work",
+    "workspaceFolder": "/workspace",
+    "settings": {
+      "terminal.integrated.shell.linux": "/bin/bash"
+    }
+  }
