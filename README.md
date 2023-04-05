@@ -29,3 +29,9 @@ Hello, world!
 ```
 $ cargo install cargo-edit
 ```
+
+# run tests
+
+```
+$ cargo test
+```
