@@ -18,9 +18,11 @@ $ cargo install cargo-script
 インストール終了後、下記のように.rsファイルを指定してプログラムを実行できるようになる。
 
 ```
-$ cargo script src/hello.rs 
+$ cargo script src/main.rs 
 Hello, world!
 ```
+
+ただし`cargo-script`で実行できるのは単一のrustファイルの場合のみとなる。mod宣言を指定して他のファイルで定義された関数を呼び出している場合は`cargo-script`による実行はできない。代わりに`cargo run`を使用する。`cargo run`については後述。
 
 # install cargo-edit
 
@@ -28,6 +30,22 @@ Hello, world!
 
 ```
 $ cargo install cargo-edit
+```
+
+# run main
+
+`cargo run`を実行することでエントリポイントとなるrustファイルをビルドしてそのまま実行できる。ただしエントリポイントはデフォルトで`src/main.rs`となる。別の名前のrustファイルをエントリポイントとする場合は`Cargo.toml`にエントリポイントを追記する必要がある。例えば新たなエントリポイントとして`src/main2.rs`を使用する場合、下記のように`Cargo.toml`を修正する。
+
+```
+[[bin]]
+name = "main2"
+path = "src/main2.rs"
+```
+
+`Cargo.toml`を修正後、下記のように引数を指定して`cargo run`を実行する。
+
+```
+$ cargo run --bin main2
 ```
 
 # run tests
