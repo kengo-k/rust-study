@@ -2,7 +2,7 @@ version: "3"
 services:
 
   work:
-    image: ghcr.io/kengo-k/dev-base-ubuntu:202304021230-09bb6ae
+    image: ghcr.io/kengo-k/dev-base-rust:202304062301-8950644
     container_name: study-ruest
     hostname: study-rust
     tty: true
