@@ -3,11 +3,8 @@ mod tests {
 
     #[test]
     fn test_print() {
-        let message = get_message("World");
+        // 文字列リテラルの型は&strとなる
+        let s: &str = "hello"
         println!("{}", message);
-    }
-
-    fn get_message(name: &str) -> String {
-        return format!("Hello, {}!", name);
     }
 }
