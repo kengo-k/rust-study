@@ -15,7 +15,7 @@ mod tests {
         let mut result = String::new();
         // 変数wをpush_strに渡すためには所有権が必要になるため&で借用する。
         // for文が終了しスコープを抜けた時点で借用は終了する。
-        for w in &words {
+        for w in words {
             result.push_str(w);
         }
         println!("result string: {}", result)
