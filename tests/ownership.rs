@@ -6,6 +6,8 @@ mod tests {
         // 数値型の代入は単純なコピーとなるため所有権の問題が発生する
         let a = 10;
         let b = a;
+        println!("a: {}", a);
+        println!("b: {}", b);
 
         // Stringは内部に可変のデータ(ヒープ領域)を持つ。
         // xをyに代入するとxが保持するヒープ領域のポインタがyにコピーされる。
@@ -24,10 +26,10 @@ mod tests {
         // let x = String::from("world");
         // let y = x;
         // println!("x: {}", x);
+
+        // xに所有権を残したまま変数yも参照可能にするには&をつけて所有権を借用する
         let x = String::from("world");
         let y = &x;
-        println!("a: {}", a);
-        println!("b: {}", b);
         println!("x: {}", x);
         println!("y: {}", y);
     }
