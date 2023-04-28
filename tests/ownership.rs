@@ -1,5 +1,10 @@
 #[cfg(test)]
 mod tests {
+    
+    #[derive(Clone, Copy)]
+    struct Struct1 {
+        i: i32,
+    }
 
     #[test]
     fn test_ownership() {
@@ -32,5 +37,17 @@ mod tests {
         let y = &x;
         println!("x: {}", x);
         println!("y: {}", y);
+        
+        // 構造体の変数st1をst2にコピーする場合の例
+        // 構造体Struct1はCopyトレイトを実装しているため
+        // 代入を行うとコピーが行われるため所有権のムーブは起きない
+        let st1 = Struct1 {
+            i: 5,
+        };
+
+        // &をつけて借用しなくてもst2を参照できる
+        let st2 = st1;
+        println!("st1[i]: {}", st1.i);
+
     }
 }
