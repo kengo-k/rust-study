@@ -6,6 +6,11 @@ mod tests {
         i: i32,
     }
 
+    // deriveを指定しない構造体を定義
+    struct Struct2 {
+        i: i32
+    }
+
     #[test]
     fn test_ownership() {
         // 数値型の代入は単純なコピーとなるため所有権の問題が発生する
@@ -48,6 +53,15 @@ mod tests {
         // &をつけて借用しなくてもst2を参照できる
         let st2 = st1;
         println!("st1[i]: {}", st1.i);
+
+        let st3 = Struct2 {
+            i: 5,
+        };
+
+        let st4 = st3;
+        // st3は所有権をst4に譲渡したのでst3を参照することはできない
+        //println!("st3[i]: {}", st3.i);
+        println!("st4[i]: {}", st4.i);
 
     }
 }
