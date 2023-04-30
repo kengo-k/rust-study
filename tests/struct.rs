@@ -14,8 +14,9 @@ mod tests {
     fn create_user(username: String, email: String, password: String) -> User {
         User {
             username: username, 
-            email: email,
-            password: password
+            // JavaScriptと同様に変数名とフィールド名が一致する場合は省略して記述することができる
+            email,
+            password
         }
     }
 
