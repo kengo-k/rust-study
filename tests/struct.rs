@@ -27,6 +27,10 @@ mod tests {
         let user2 = User2 {
             username: name2
         };
-        println!("user: {:?}", user);
+        let user3 = User {
+            username: "yamada".to_string(),
+            ..user
+        };
+        println!("user3: {:?}", user3);
     }
 }
