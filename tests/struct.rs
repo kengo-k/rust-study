@@ -11,6 +11,9 @@ mod tests {
         username: &'a str
     }
 
+    #[derive(Debug)]
+    struct Point(i32, i32);
+
     fn create_user(username: String, email: String, password: String) -> User {
         User {
             username: username, 
@@ -32,5 +35,8 @@ mod tests {
             ..user
         };
         println!("user3: {:?}", user3);
+
+        let point = Point(0, 0);
+        println!("point: {:?}", point);
     }
 }
