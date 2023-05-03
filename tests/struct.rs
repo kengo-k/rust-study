@@ -10,8 +10,13 @@ mod tests {
 
     // 構造体Userにメソッドgreetingを定義する例
     impl User {
+        // メソッドの第一引数は必ずselfという名前でなければならない
+        // つまりPythonのように慣習としてselfという名前をつかうわけではない
+        // (正確にはself、&self、&mut selfのどれかが使える)
+        // また型もimplの後に明示されているため、selfの型をメソッドの定義で指定しないことに注意
+        // (省略されているのではなく指定できない)
         fn greeting(&self) -> String {
-            format!("Hello, My name is {}, and I am {} years old", self.name, self.age)
+            format!("Hello, My name is {}, and I am {} years old",&self.name,&self.age)
         }
     }
 
