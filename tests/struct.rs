@@ -5,6 +5,7 @@ mod tests {
         name: String,
         email: String,
         password: String,
+        age: i32,
     }   
 
     #[derive(Debug)]
@@ -12,6 +13,7 @@ mod tests {
         name: String,
         email: String,
         password: String,
+        age: i32,
     }
 
     #[derive(Debug)]
@@ -28,28 +30,42 @@ mod tests {
 
     #[test]
     fn test_struct() {
-        let user = User {
+        let age = 25;
+        let john = User {
             name: "john".to_string(),
             email: "john@example.com".to_string(),
             password: "xxx".to_string(),
+            // フィールド名と値が同じ場合は省略記法が使える(JSのObjectと同様の機能)
+            age,
         };
 
         // {}を指定して構造体を出力してもエラーとなる。
         // {}は指定された値(ここでは変数user)がDisplayトレイトを実装していることを前提とするため
         // → Displayトレイトに定義されているfmtメソッドが呼び出される
-        //println!("user: {}", user);
+        //println!("john: {}", john);
 
         // {}を{:?}に変更するとDisplayではなくDebugトレイトを実装していることを要求される。
         // ※ User構造体はDebugトレイトも実装していないため上記と同様にエラーとなる。
         // → DebugトレイトにもDisplayと同様にfmtメソッドが定義されている
-        //println!("user: {:?}", user);
+        //println!("john: {:?}", john);
 
-        let debuggable_user = DebuggableUser {
+        let debuggable_john = DebuggableUser {
             name: "john".to_string(),
             email: "john@example.com".to_string(),
             password: "xxx".to_string(),
+            age,
         };
-        println!("debuggable_user: {:?}", debuggable_user);
+        println!("debuggable_john: {:?}", debuggable_john);
+
+        let debuggable_bob = DebuggableUser {
+            name: "bob".to_string(),
+            email: "bob@example.com".to_string(),
+            // ..を使うと既存の構造体のフィールドを展開して初期化に使うことができる
+            // ここではnameとemailはすでに指定されているのでpasswordとageが展開される
+            ..debuggable_john
+        };
+        println!("debuggable_bob: {:?}", debuggable_bob);
+
 
         // let name2 = "john";
         // let user2 = User2 {
