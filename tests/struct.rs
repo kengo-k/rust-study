@@ -6,7 +6,14 @@ mod tests {
         email: String,
         password: String,
         age: i32,
-    }   
+    }
+
+    // 構造体Userにメソッドgreetingを定義する例
+    impl User {
+        fn greeting(&self) -> String {
+            format!("Hello, My name is {}, and I am {} years old", self.name, self.age)
+        }
+    }
 
     #[derive(Debug)]
     struct DebuggableUser {
@@ -16,17 +23,10 @@ mod tests {
         age: i32,
     }
 
+    // タプル構造体
+    // フィールド名を持つほどでもない簡単な構造体に使える
     #[derive(Debug)]
     struct Point(i32, i32);
-
-    // fn create_user(username: String, email: String, password: String) -> User {
-    //     User {
-    //         username: username, 
-    //         // JavaScriptと同様に変数名とフィールド名が一致する場合は省略して記述することができる
-    //         email,
-    //         password
-    //     }
-    // }
 
     #[test]
     fn test_struct() {
@@ -38,6 +38,8 @@ mod tests {
             // フィールド名と値が同じ場合は省略記法が使える(JSのObjectと同様の機能)
             age,
         };
+
+        println!("john's greeting: {}", john.greeting());
 
         // {}を指定して構造体を出力してもエラーとなる。
         // {}は指定された値(ここでは変数user)がDisplayトレイトを実装していることを前提とするため
