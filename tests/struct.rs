@@ -16,7 +16,19 @@ mod tests {
         // また型もimplの後に明示されているため、selfの型をメソッドの定義で指定しないことに注意
         // (省略されているのではなく指定できない)
         fn greeting(&self) -> String {
-            format!("Hello, My name is {}, and I am {} years old",&self.name,&self.age)
+            format!("Hello, My name is {}, and I am {} years old", &self.name, &self.age)
+        }
+
+        // 第一引数がselfではない場合それはメソッドではなくただの関数となる。
+        // 他の言語でいうところのいわゆるstaticなメソッドとなる
+        // Rustでは関連関数と呼ぶ
+        fn create_message(name: &str, age: i32) -> String {
+            format!("Hello, My name is {}, and I am {} years old", name, age)
+        }
+
+        // 関連関数を呼び出すバージョン
+        fn greeting2(&self) -> String {
+            Self::create_message(&self.name, self.age)
         }
     }
 
@@ -45,6 +57,7 @@ mod tests {
         };
 
         println!("john's greeting: {}", john.greeting());
+        println!("john's greeting2: {}", john.greeting2());
 
         // {}を指定して構造体を出力してもエラーとなる。
         // {}は指定された値(ここでは変数user)がDisplayトレイトを実装していることを前提とするため
