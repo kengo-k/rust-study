@@ -3,7 +3,7 @@ mod tests {
 
     // 列挙型の例
     enum Status {
-        SUCCESS, 
+        SUCCESS,
         // 個々の列挙型の値は独自の値を持つことができる
         // ここでは単純な数値型やStringを使用しているが構造体や列挙型など任意の値を持てる
         ERROR(i32, String)
