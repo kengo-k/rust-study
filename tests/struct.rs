@@ -1,6 +1,7 @@
 #[cfg(test)]
 mod tests {
-    
+
+    #[allow(dead_code)]
     struct User {
         name: String,
         email: String,
@@ -32,6 +33,7 @@ mod tests {
         }
     }
 
+    #[allow(dead_code)]
     #[derive(Debug)]
     struct DebuggableUser {
         name: String,
