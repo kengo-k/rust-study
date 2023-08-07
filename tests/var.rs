@@ -49,6 +49,8 @@ mod tests {
         p1 = Person::new(35, "Bob".to_string());
 
         // update struct's values
+        //
+        // Since the variable p1 is the owner, it is possible to call a method where the receiver is a mutable reference.
         p1.set(32, "Alice".to_string());
 
         println!("person: {:?}", p1);
