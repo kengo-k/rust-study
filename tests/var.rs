@@ -53,6 +53,16 @@ mod tests {
         // Since the variable p1 is the owner, it is possible to call a method where the receiver is a mutable reference.
         p1.set(32, "Alice".to_string());
 
-        println!("person: {:?}", p1);
+        println!("person 1st: {:?}", p1);
+
+        // It is possible to modify the value of a struct through a mutable reference.
+        // In this case, the 'mut' keyword is not required in the variable declaration.
+        let rp1 = &mut p1;
+        rp1.set(40, "Scott".to_string());
+        println!("person 2nd: {:?}", rp1);
+
+        // The variable rp1 does not have 'mut' specified, so it cannot be reassigned.
+        // So the code below will not compile.
+        // rp1 = &mut p1;
     }
 }
