@@ -8,7 +8,6 @@ mod tests {
     }
 
     impl Person {
-
         pub fn new(age: i32, name: String) -> Person {
             Person { age, name }
         }
@@ -17,7 +16,6 @@ mod tests {
             self.age = age;
             self.name = name;
         }
-
     }
 
     #[test]
@@ -54,6 +52,5 @@ mod tests {
         p1.set(32, "Alice".to_string());
 
         println!("person: {:?}", p1);
-
     }
 }
