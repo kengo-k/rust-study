@@ -1,105 +1,51 @@
 #[cfg(test)]
 mod tests {
 
-    #[allow(dead_code)]
-    struct User {
-        name: String,
-        email: String,
-        password: String,
-        age: i32,
-    }
-
-    // 構造体Userにメソッドgreetingを定義する例
-    impl User {
-        // メソッドの第一引数は必ずselfという名前でなければならない
-        // つまりPythonのように慣習としてselfという名前をつかうわけではない
-        // (正確にはself、&self、&mut selfのどれかが使える)
-        // また型もimplの後に明示されているため、selfの型をメソッドの定義で指定しないことに注意
-        // (省略されているのではなく指定できない)
-        fn greeting(&self) -> String {
-            format!("Hello, My name is {}, and I am {} years old", &self.name, &self.age)
-        }
-
-        // 第一引数がselfではない場合それはメソッドではなくただの関数となる。
-        // 他の言語でいうところのいわゆるstaticなメソッドとなる
-        // Rustでは関連関数と呼ぶ
-        fn create_message(name: &str, age: i32) -> String {
-            format!("Hello, My name is {}, and I am {} years old", name, age)
-        }
-
-        // 関連関数を呼び出すバージョン
-        fn greeting2(&self) -> String {
-            Self::create_message(&self.name, self.age)
-        }
-    }
-
-    #[allow(dead_code)]
-    #[derive(Debug)]
-    struct DebuggableUser {
-        name: String,
-        email: String,
-        password: String,
-        age: i32,
-    }
-
-    // タプル構造体
-    // フィールド名を持つほどでもない簡単な構造体に使える
-    #[derive(Debug)]
-    struct Point(i32, i32);
-
     #[test]
     fn test_struct() {
-        let age = 25;
-        let john = User {
-            name: "john".to_string(),
-            email: "john@example.com".to_string(),
-            password: "xxx".to_string(),
-            // フィールド名と値が同じ場合は省略記法が使える(JSのObjectと同様の機能)
-            age,
+        // Create an instance of the struct.
+        let john = Person {
+            name: "John".to_string(),
+            age: 20,
         };
 
-        println!("john's greeting: {}", john.greeting());
-        println!("john's greeting2: {}", john.greeting2());
+        let name = "Alice".to_string();
+        let alice = Person { name, age: 25 };
 
-        // {}を指定して構造体を出力してもエラーとなる。
-        // {}は指定された値(ここでは変数user)がDisplayトレイトを実装していることを前提とするため
-        // → Displayトレイトに定義されているfmtメソッドが呼び出される
-        //println!("john: {}", john);
+        // Create an instance of the struct using the associated function.
+        let bob = Person::new("Bob".to_string(), 30);
 
-        // {}を{:?}に変更するとDisplayではなくDebugトレイトを実装していることを要求される。
-        // ※ User構造体はDebugトレイトも実装していないため上記と同様にエラーとなる。
-        // → DebugトレイトにもDisplayと同様にfmtメソッドが定義されている
-        //println!("john: {:?}", john);
+        assert_eq!(john.name, "John");
+        assert_eq!(john.age, 20);
 
-        let debuggable_john = DebuggableUser {
-            name: "john".to_string(),
-            email: "john@example.com".to_string(),
-            password: "xxx".to_string(),
-            age,
-        };
-        println!("debuggable_john: {:?}", debuggable_john);
+        assert_eq!(alice.name, "Alice");
+        assert_eq!(alice.age, 25);
 
-        let debuggable_bob = DebuggableUser {
-            name: "bob".to_string(),
-            email: "bob@example.com".to_string(),
-            // ..を使うと既存の構造体のフィールドを展開して初期化に使うことができる
-            // ここではnameとemailはすでに指定されているのでpasswordとageが展開される
-            ..debuggable_john
-        };
-        println!("debuggable_bob: {:?}", debuggable_bob);
+        assert_eq!(bob.name, "Bob");
+        assert_eq!(bob.age, 30);
+        assert_eq!(bob.greeting(), "Hello, I'm Bob, I am 30 years old");
 
-
-        // let name2 = "john";
-        // let user2 = User2 {
-        //     username: name2
-        // };
-        // let user3 = User {
-        //     username: "yamada".to_string(),
-        //     ..user
-        // };
-        // println!("user3: {:?}", user3);
-
-        // let point = Point(0, 0);
-        // println!("point: {:?}", point);
+        let p = Point(10, 20);
+        assert_eq!(p.0, 10);
+        assert_eq!(p.1, 20);
     }
+
+    struct Person {
+        name: String,
+        age: i32,
+    }
+
+    // Define methods for the Person struct.
+    impl Person {
+        pub fn new(name: String, age: i32) -> Self {
+            Person { name, age }
+        }
+
+        pub fn greeting(&self) -> String {
+            format!("Hello, I'm {}, I am {} years old", &self.name, &self.age)
+        }
+    }
+
+    // Tuple struct
+    struct Point(i32, i32);
 }
