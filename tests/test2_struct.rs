@@ -23,6 +23,9 @@ mod tests {
 
         assert_eq!(bob.name, "Bob");
         assert_eq!(bob.age, 30);
+
+        let bob_ref = &bob;
+        assert_eq!(bob_ref.greeting(), "Hello, I'm Bob, I am 30 years old");
         assert_eq!(bob.greeting(), "Hello, I'm Bob, I am 30 years old");
 
         let p = Point(10, 20);
