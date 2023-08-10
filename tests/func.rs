@@ -2,35 +2,46 @@
 mod tests {
 
     #[test]
-    fn test_fn() {
-        println!("a + b = {}", add(5, 8));
-        show(format!("a + b = {}", add(5, 8)).as_str());
+    fn test_func() {
+        assert_eq!(power(2, 3), 8);
+        assert_eq!(even_or_odd(8), "even");
+        assert_eq!(even_or_odd(11), "odd");
+        assert_eq!(greet1("World"), ());
+        assert_eq!(greet2("Rust"), ());
     }
 
-    // 通常の関数定義では引数と戻り値の型を明示しなければならない
-    fn add(a: i32, b: i32) -> i32 {
-        // 関数の最後の置いた式が関数の戻り値となる。
-        // a + bは式なのでセミコロンを置かないこと
-        // セミコロンを置いた場合は文扱いになる。文は値を返さない(=`()`という型の値が暗黙で返される)
-        a + b
-        // 文で返したい場合はreturn文を使う
-        // returnは文であるためセミコロンを使う。
-        // return a + b; 
-        //
-        // returnは条件分岐の途中で関数を終了させる場合にも使う
+    // calculate the power
+    //
+    // The types of the arguments and return value of a function must be explicitly stated, and cannot be omitted.
+    fn power(base: i32, exponent: u32) -> i32 {
+        let mut result = 1;
+        for _ in 0..exponent {
+            result *= base;
+        }
+
+        // An expression placed at the end of a function becomes the return value.
+        // Do not put a semicolon at the end of the expression.
+        result
     }
 
-    // これは戻りの型を(a + bから推論できるはずだからと誤解して)省略した場合の例。
-    // 省略した場合は戻りの型が`()`型(ユニット型)であると判断される。
-    // ただし関数の最後の式はi32であり、これは`()`ではないため型が不一致となりビルドエラーとなる。
-    // fn add(a: i32, b: i32) {
-    //     a + b
-    // }
-
-    // この関数は値を返さないので戻りの型を省略してよい。
-    // 関数の末尾に文が置かれており、`()`を返す関数として宣言されているため問題はない
-    fn show(message: &str) {
-        println!("{}", message);
+    // Determining whether a number is even or odd
+    fn even_or_odd(number: i32) -> String {
+        // When terminating a function midway and returning a value, use the return keyword.
+        // Since return is a statement, it must be followed by a semicolon.
+        if number % 2 == 0 {
+            return "even".to_string();
+        }
+        "odd".to_string()
     }
 
+    // If the return type of a function is not described,
+    // it is treated as having a return type of ().
+    fn greet1(message: &str) {
+        println!("Hello, {}!", message);
+    }
+
+    // It is also possible to explicitly specify () as the return type.
+    fn greet2(message: &str) -> () {
+        println!("Hello, {}!!", message);
+    }
 }
