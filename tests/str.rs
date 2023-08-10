@@ -1,23 +1,31 @@
 #[cfg(test)]
 mod tests {
 
-    #[test]
-    fn test_print() {
-        // 文字列リテラルの型は&strとなる
-        let s: &str = "hello";
+    fn print_str(s: &str) {
         println!("{}", s);
+    }
 
-        // &strは変更できないので文字列を修正する場合はStringを使う
-        let words = ["Hello", ",", "World", "!"];
-        // 変数がresultが指すオブジェクトは変えていない（=再代入はしていない)が、
-        // (pust_strにより)オブジェクトの中身に修正を加えているのでmut指定が必要。
-        // ※JSなど他の言語ではconst変数に代入したarrayにpushできる点で仕様が異なっている
-        let mut result = String::new();
-        // 変数wをpush_strに渡すためには所有権が必要になるため&で借用する。
-        // for文が終了しスコープを抜けた時点で借用は終了する。
-        for w in words {
-            result.push_str(w);
-        }
-        println!("result string: {}", result)
+    #[test]
+    fn test_string() {
+        // The type of a string literal is &str.
+        let str_ref = "hello";
+        assert_eq!(str_ref, "hello");
+
+        // You cannot modify a value of type &str.
+        // To change the value of a string, you must use the String type.
+        let mut string = String::new();
+        string.push_str("Hello, ");
+        string.push_str("World!");
+        assert_eq!(string, "Hello, World!");
+
+        // print_str requires a &str as the argument type,
+        // but it is possible to pass a value of &String type.
+        print_str(str_ref);
+        print_str(&string);
+
+        // The method len is defined for &str,
+        // but it can also be called from a value of type String.
+        assert_eq!(str_ref.len(), 5);
+        assert_eq!(string.len(), 13);
     }
 }
