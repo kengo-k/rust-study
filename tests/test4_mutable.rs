@@ -64,5 +64,10 @@ mod tests {
         // The variable rp1 does not have 'mut' specified, so it cannot be reassigned.
         // So the code below will not compile.
         // rp1 = &mut p1;
+
+        // redclare rp1 using let without 'mut'
+        let rp1 = &p1;
+        // rp1 is not mutable, so it cannot be modified and the code below will not compile.
+        //rp1.set(40, "Scott".to_string());
     }
 }
